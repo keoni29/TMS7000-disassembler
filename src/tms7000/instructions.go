@@ -54,21 +54,21 @@ func iop16bitOneReg(format string) formatFunc {
 
 func pcPlusOffset(format string) formatFunc {
 	return func(args []byte, pc uint, labels *LabelTable) string {
-		address := pc + uint(args[0])
+		address := uint(int(pc) + int(int8(args[0]))) + 2
 		return fmt.Sprintf(format, address)
 	}
 }
 
 func argPcPlusOffset(format string) formatFunc {
 	return func(args []byte, pc uint, labels *LabelTable) string {
-		address := pc + uint(args[1])
+		address := uint(int(pc) + int(int8(args[1]))) + 3
 		return fmt.Sprintf(format, args[0], address)
 	}
 }
 
 func argArgPcPlusOffset(format string) formatFunc {
 	return func(args []byte, pc uint, labels *LabelTable) string {
-		address := pc + uint(args[1])
+		address := uint(int(pc) + int(int8(args[2]))) + 4
 		return fmt.Sprintf(format, args[0], args[1], address)
 	}
 }
@@ -371,30 +371,30 @@ var TMS7000InstructionSet = InstructionSet{
 	0xc7: {"SWAP", "", F_B},
 	0xd7: {"SWAP", "", F_Rn},
 
-	0xe8: {"TRAP-0", "", F_None},
-	0xe9: {"TRAP-1", "", F_None},
-	0xea: {"TRAP-2", "", F_None},
-	0xeb: {"TRAP-3", "", F_None},
-	0xec: {"TRAP-4", "", F_None},
-	0xed: {"TRAP-5", "", F_None},
-	0xee: {"TRAP-6", "", F_None},
-	0xef: {"TRAP-7", "", F_None},
-	0xf0: {"TRAP-8", "", F_None},
-	0xf1: {"TRAP-9", "", F_None},
-	0xf2: {"TRAP-10", "", F_None},
-	0xf3: {"TRAP-11", "", F_None},
-	0xf4: {"TRAP-12", "", F_None},
-	0xf5: {"TRAP-13", "", F_None},
-	0xf6: {"TRAP-14", "", F_None},
-	0xf7: {"TRAP-15", "", F_None},
-	0xf8: {"TRAP-16", "", F_None},
-	0xf9: {"TRAP-17", "", F_None},
-	0xfa: {"TRAP-18", "", F_None},
-	0xfb: {"TRAP-19", "", F_None},
-	0xfc: {"TRAP-20", "", F_None},
-	0xfd: {"TRAP-21", "", F_None},
-	0xfe: {"TRAP-22", "", F_None},
-	0xff: {"TRAP-23", "", F_None},
+	0xe8: {"TRAP-23", "", F_None},
+	0xe9: {"TRAP-22", "", F_None},
+	0xea: {"TRAP-21", "", F_None},
+	0xeb: {"TRAP-20", "", F_None},
+	0xec: {"TRAP-19", "", F_None},
+	0xed: {"TRAP-18", "", F_None},
+	0xee: {"TRAP-17", "", F_None},
+	0xef: {"TRAP-16", "", F_None},
+	0xf0: {"TRAP-15", "", F_None},
+	0xf1: {"TRAP-14", "", F_None},
+	0xf2: {"TRAP-13", "", F_None},
+	0xf3: {"TRAP-12", "", F_None},
+	0xf4: {"TRAP-11", "", F_None},
+	0xf5: {"TRAP-10", "", F_None},
+	0xf6: {"TRAP-9", "", F_None},
+	0xf7: {"TRAP-8", "", F_None},
+	0xf8: {"TRAP-7", "", F_None},
+	0xf9: {"TRAP-6", "", F_None},
+	0xfa: {"TRAP-5", "", F_None},
+	0xfb: {"TRAP-4", "", F_None},
+	0xfc: {"TRAP-3", "", F_None},
+	0xfd: {"TRAP-2", "", F_None},
+	0xfe: {"TRAP-1", "", F_None},
+	0xff: {"TRAP-0", "", F_None},
 
 	0xb0: {"TSTA", "", F_None},
 
